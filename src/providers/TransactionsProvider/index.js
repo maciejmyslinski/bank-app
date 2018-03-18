@@ -7,10 +7,17 @@ export class TransactionsProvider extends Component {
     super(props);
     this.generator = paginator(transactions);
     const initialTransactions = this.generator.next();
-    this.state = {
-      transactions: initialTransactions.value,
-      couldLoadMore: !initialTransactions.done
-    };
+    if (initialTransactions.value) {
+      this.state = {
+        transactions: initialTransactions.value,
+        couldLoadMore: !initialTransactions.done
+      };
+    } else {
+      this.state = {
+        transactions: transactions,
+        couldLoadMore: false
+      };
+    }
   }
 
   loadMore = () =>
