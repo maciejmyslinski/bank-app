@@ -7,13 +7,19 @@ export class Home extends PureComponent {
       <React.Fragment>
         <h1>Your transactions history</h1>
         <TransactionsProvider
-          render={transactions => {
+          render={({ transactions, couldLoadMore, loadMore }) => {
             return (
-              (transactions &&
-                transactions.map(transaction => (
-                  <div key={transaction.id}>{transaction.title}</div>
-                ))) ||
-              null
+              <div>
+                {transactions &&
+                  transactions.map(transaction => (
+                    <div key={transaction.id}>{transaction.title}</div>
+                  ))}
+                {couldLoadMore && (
+                  <button type="button" onClick={loadMore}>
+                    Load more
+                  </button>
+                )}
+              </div>
             );
           }}
         />
