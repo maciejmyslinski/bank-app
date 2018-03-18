@@ -1,12 +1,16 @@
 import { Component } from 'react';
 import { transactions } from '../../services/data/transactions';
 import { paginator } from '../../tasks/paginator';
+import { search } from '../../tasks/search';
 
 export class TransactionsProvider extends Component {
   constructor(props) {
     super(props);
-    this.generator = paginator(transactions);
+    const data = search(transactions, this.props.searchPhrase);
+    this.generator = paginator(data);
     const initialTransactions = this.generator.next();
+
+    // if paginator is implemented
     if (initialTransactions.value) {
       this.state = {
         transactions: initialTransactions.value,
