@@ -1,7 +1,7 @@
-import { getBalancePerDay } from "./";
+import { getBalancePerDay } from './';
 
-describe("getBalancePerDay", () => {
-  it("should ...", () => {
+describe('getBalancePerDay', () => {
+  it('should ...', () => {
     // write your tests here
   });
 });
