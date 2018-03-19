@@ -33,7 +33,7 @@ export class TransactionsProvider extends Component {
     const initialTransactions = this.generator.next();
 
     // if paginator is implemented
-    if (initialTransactions.value || !data.length) {
+    if (initialTransactions.value || (data && !data.length)) {
       this.setState({
         transactions: initialTransactions.value,
         couldLoadMore: !initialTransactions.done
