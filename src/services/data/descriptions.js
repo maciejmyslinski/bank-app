@@ -1,4 +1,4 @@
-export const transactions = [
+export const descriptions = [
   {
     id: 'be466833-30e8-4f8d-88a4-34913780bb03',
     description:
