@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { TransactionsProvider } from '../../providers/TransactionsProvider';
 import { Filter } from './components/Filter';
 import { DescriptionProvider } from '../../providers/DescriptionProvider';
+import { formatIban } from '../../tasks/formatIban';
 
 export class Home extends PureComponent {
   render() {
@@ -17,6 +18,7 @@ export class Home extends PureComponent {
                   transactions.map(transaction => (
                     <div key={transaction.id}>
                       <h3>{transaction.title}</h3>
+                      <span>{formatIban(transaction.iban)}</span>
                       <DescriptionProvider
                         transactionId={transaction.id}
                         render={({
