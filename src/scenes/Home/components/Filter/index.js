@@ -1,20 +1,18 @@
 import React, { PureComponent } from 'react';
+import { Field } from 'react-final-form';
 
 export class Filter extends PureComponent {
   render() {
     return (
       <div>
         <label>
-          Search:<input type="text" />
+          Search:<Field type="text" component="input" name="searchPhrase" />
         </label>
         <label>
-          Start date:<input
-            type="date"
-            onChange={e => console.log(e.target.valueAsDate)}
-          />
+          Start date:<Field type="date" name="startDate" component="input" />
         </label>
         <label>
-          End date:<input type="date" />
+          End date:<Field type="date" name="endDate" component="input" />
         </label>
       </div>
     );

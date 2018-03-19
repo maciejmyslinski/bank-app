@@ -1,52 +1,48 @@
 import React, { PureComponent } from 'react';
+import { Form, FormSpy } from 'react-final-form';
 import { TransactionsProvider } from '../../providers/TransactionsProvider';
 import { Filter } from './components/Filter';
-import { DescriptionProvider } from '../../providers/DescriptionProvider';
-import { formatIban } from '../../tasks/formatIban';
+import { Transaction } from './components/Transaction';
 
 export class Home extends PureComponent {
   render() {
     return (
       <React.Fragment>
         <h1>Your transactions history</h1>
-        <Filter />
-        <TransactionsProvider
-          render={({ transactions, couldLoadMore, loadMore }) => {
-            return (
-              <div>
-                {transactions &&
-                  transactions.map(transaction => (
-                    <div key={transaction.id}>
-                      <h3>{transaction.title}</h3>
-                      <span>{formatIban(transaction.iban)}</span>
-                      <DescriptionProvider
-                        transactionId={transaction.id}
-                        render={({
-                          loading,
-                          error,
-                          description,
-                          fetchDescription
-                        }) => {
-                          if (loading) return <p>loading...</p>;
-                          if (error) return <p>error</p>;
-                          if (description) return <p>{description}</p>;
-                          return (
-                            <button type="button" onClick={fetchDescription}>
-                              show description
+        <Form
+          onSubmit={() => {}}
+          subscription={{}}
+          render={() => (
+            <React.Fragment>
+              <Filter />
+              <FormSpy
+                subscription={{ values: true }}
+                render={({ values }) => (
+                  <TransactionsProvider
+                    {...values}
+                    render={({ transactions, couldLoadMore, loadMore }) => {
+                      return (
+                        <div>
+                          {transactions &&
+                            transactions.map(transaction => (
+                              <Transaction
+                                key={transaction.id}
+                                transaction={transaction}
+                              />
+                            ))}
+                          {couldLoadMore && (
+                            <button type="button" onClick={loadMore}>
+                              Load more
                             </button>
-                          );
-                        }}
-                      />
-                    </div>
-                  ))}
-                {couldLoadMore && (
-                  <button type="button" onClick={loadMore}>
-                    Load more
-                  </button>
+                          )}
+                        </div>
+                      );
+                    }}
+                  />
                 )}
-              </div>
-            );
-          }}
+              />
+            </React.Fragment>
+          )}
         />
       </React.Fragment>
     );

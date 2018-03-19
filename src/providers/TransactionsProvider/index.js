@@ -26,6 +26,26 @@ export class TransactionsProvider extends Component {
     }
   }
 
+  componentWillReceiveProps = nextProps => {
+    let data = search(transactions, nextProps.searchPhrase);
+    data = dateFilter(nextProps.startDate, nextProps.endDate, data);
+    this.generator = paginator(data);
+    const initialTransactions = this.generator.next();
+
+    // if paginator is implemented
+    if (initialTransactions.value || !data.length) {
+      this.setState({
+        transactions: initialTransactions.value,
+        couldLoadMore: !initialTransactions.done
+      });
+    } else {
+      this.setState({
+        transactions: transactions,
+        couldLoadMore: false
+      });
+    }
+  };
+
   loadMore = () =>
     this.state.couldLoadMore &&
     this.setState(state => {
