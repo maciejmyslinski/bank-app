@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { LineChart, Line } from 'recharts';
 import { getBalancePerDay } from '../../tasks/getBalancePerDay';
 import { transactions } from '../../services/data/transactions';
 
@@ -8,12 +9,13 @@ export class Cashflow extends PureComponent {
     return (
       <div>
         <h1>Cashflow</h1>
-        {Object.keys(balancePerDay).map(day => (
-          <p key={day}>
-            <b>{day}:</b>
-            {balancePerDay[day]}
-          </p>
-        ))}
+        <LineChart
+          width={300}
+          height={200}
+          data={balancePerDay}
+        >
+          <Line dataKey="value" stroke="#8884d8" />
+        </LineChart>
       </div>
     );
   }
