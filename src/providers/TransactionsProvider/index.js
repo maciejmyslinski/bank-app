@@ -2,11 +2,13 @@ import { Component } from 'react';
 import { transactions } from '../../services/data/transactions';
 import { paginator } from '../../tasks/paginator';
 import { search } from '../../tasks/search';
+import { dateFilter } from '../../tasks/dateFilter';
 
 export class TransactionsProvider extends Component {
   constructor(props) {
     super(props);
-    const data = search(transactions, this.props.searchPhrase);
+    let data = search(transactions, this.props.searchPhrase);
+    data = dateFilter(this.props.startDate, this.props.endDate, data);
     this.generator = paginator(data);
     const initialTransactions = this.generator.next();
 

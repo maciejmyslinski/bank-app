@@ -9,7 +9,6 @@ export class Home extends PureComponent {
         <h1>Your transactions history</h1>
         <Filter />
         <TransactionsProvider
-          searchPhrase="odi"
           render={({ transactions, couldLoadMore, loadMore }) => {
             return (
               <div>

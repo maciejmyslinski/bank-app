@@ -7,6 +7,15 @@ export class Filter extends PureComponent {
         <label>
           Search:<input type="text" />
         </label>
+        <label>
+          Start date:<input
+            type="date"
+            onChange={e => console.log(e.target.valueAsDate)}
+          />
+        </label>
+        <label>
+          End date:<input type="date" />
+        </label>
       </div>
     );
   }
